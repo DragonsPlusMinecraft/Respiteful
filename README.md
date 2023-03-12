@@ -9,7 +9,7 @@ Currently, there are 4 flavors:
 - Black Tea: provides the new Maturity effect, increases eaten foods' nutrition.
 - Coffee: provides the Caffeinated effect from Farmer's Respite, increases player's speed and attack speed, resets player's time since last sleep.
 
-# Foods
+## Foods
 Respiteful added cakes for the tea flavors (Coffee Cake already exists in Farmer's Respite),
 and as a substitution for Neapolitan's milkshakes, all 4 flavors has their Snow Top Tea/Coffee：
 
@@ -28,7 +28,7 @@ Respiteful also adds new drinks using Neapolitan flavor ingredients:
 - Adzuki Milk Tea: Adzuki + Black Tea + Milk
 - Mocha Coffee: Chocolate + Coffee + Milk
 
-# Changes for Farmer's Respite
+## Changes for Farmer's Respite
 For consistency and QoL, Respiteful has done some configurable changes for Farmer's Respite:
 
 - Replacing all related foods' effects with the new flavor effects.
