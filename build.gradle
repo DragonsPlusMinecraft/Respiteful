@@ -1,0 +1,190 @@
+plugins {
+    id 'net.minecraftforge.gradle'
+    id 'org.spongepowered.mixin'
+    id 'org.parchmentmc.librarian.forgegradle'
+    id 'maven-publish'
+}
+
+archivesBaseName = "${modid}-${minecraft_version}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+jarJar.enable()
+
+mixin {
+    add sourceSets.main, "${modid}.refmap.json"
+    config "${modid}.mixins.json"
+
+    debug.verbose = true
+    debug.export = true
+}
+
+minecraft {
+    mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', project.modid
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', project.modid
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', project.modid, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                "${modid}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+
+repositories {
+    maven {
+        name 'Tterrag maven'
+        url 'https://maven.tterrag.com/'
+    }
+    maven {
+        name 'Progwml6 maven'
+        url 'https://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        name "Abnormals Maven"
+        url  "https://maven.jaackson.me"
+    }
+    maven {
+        name "Apple Skin"
+        url "https://maven.ryanliptak.com/"
+    }
+    maven {
+        name "Curse Maven"
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    jarJar(group: "com.tterrag.registrate", name: "Registrate", version: "[${registrate_version},)") {
+        transitive = false
+        jarJar.pin(it, project.registrate_version)
+    }
+
+    implementation  fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation fg.deobf("com.teamabnormals:blueprint:${blueprint_version}")
+    implementation fg.deobf("curse.maven:neapolitan-382016:${neapolitan_file}")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_file}")
+    implementation fg.deobf("curse.maven:farmers-respite-551453:${farmersrespite_file}")
+
+    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+    compileOnly fg.deobf("squeek.appleskin:appleskin-forge:mc${appleskin_minecraft_version}-${appleskin_version}:api")
+    runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:mc${appleskin_minecraft_version}-${appleskin_version}")
+
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+processResources {
+    def properties = [
+        "author":                       project.author,
+        "version":                      project.version,
+        "fml_version_spec":             project.fml_version_spec,
+        "minecraft_version_spec":       project.minecraft_version_spec,
+        "forge_version_spec":           project.forge_version_spec,
+        "blueprint_version_spec":       project.blueprint_version_spec,
+        "neapolitan_version_spec":      project.neapolitan_version_spec,
+        "farmersrespite_version_spec":  project.farmersrespite_version_spec]
+    inputs.properties properties
+    filesMatching("META-INF/mods.toml") {
+        expand properties
+    }
+    exclude ".cache"
+}
+
+jar {
+    classifier "slim"
+    from "LICENSE"
+    manifest {
+        attributes([
+                "Specification-Title"     : project.modid,
+                "Specification-Vendor"    : project.author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : project.author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs': "${modid}.mixins.json"
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+tasks.jarJar {
+    classifier ""
+    from "LICENSE"
+}
+
+tasks.jarJar.finalizedBy(reobf.maybeCreate("jarJar"))
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact tasks.jarJar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}

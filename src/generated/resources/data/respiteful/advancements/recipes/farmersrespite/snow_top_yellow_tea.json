@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:snow_top_yellow_tea"
+    ]
+  },
+  "criteria": {
+    "has_yellow_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "farmersrespite:yellow_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:snow_top_yellow_tea"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_yellow_tea",
+      "has_the_recipe"
+    ]
+  ]
+}

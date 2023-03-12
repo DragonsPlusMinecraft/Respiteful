@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:snow_top_coffee"
+    ]
+  },
+  "criteria": {
+    "has_coffee": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "farmersrespite:coffee"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:snow_top_coffee"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_coffee",
+      "has_the_recipe"
+    ]
+  ]
+}

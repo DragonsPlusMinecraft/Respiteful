@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "plus.dragons.respiteful.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "respiteful.refmap.json",
+  "mixins": [
+    "FoodDataMixin",
+    "FoodPropertiesMixin",
+    "MobEffectInstanceAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "respiteful:block/white_candle_green_tea_cake"
+    },
+    "lit=true": {
+      "model": "respiteful:block/white_candle_green_tea_cake_lit"
+    }
+  }
+}

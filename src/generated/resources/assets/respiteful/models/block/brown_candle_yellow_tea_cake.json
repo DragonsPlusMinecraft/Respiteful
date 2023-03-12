@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/template_cake_with_candle",
+  "textures": {
+    "particle": "respiteful:block/yellow_tea_cake_side",
+    "bottom": "respiteful:block/yellow_tea_cake_bottom",
+    "top": "respiteful:block/yellow_tea_cake_top",
+    "side": "respiteful:block/yellow_tea_cake_side",
+    "candle": "minecraft:block/brown_candle_lit"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:coffee_ice_cream"
+    ]
+  },
+  "criteria": {
+    "has_coffee_beans": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "farmersrespite:coffee_beans"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:coffee_ice_cream"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_coffee_beans",
+      "has_the_recipe"
+    ]
+  ]
+}

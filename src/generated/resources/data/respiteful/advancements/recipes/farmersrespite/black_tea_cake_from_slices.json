@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:black_tea_cake_from_slices"
+    ]
+  },
+  "criteria": {
+    "has_black_tea_cake_slice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "respiteful:black_tea_cake_slice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:black_tea_cake_from_slices"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_black_tea_cake_slice",
+      "has_the_recipe"
+    ]
+  ]
+}

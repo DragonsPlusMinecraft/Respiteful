@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "respiteful:green_tea_ice_cream_block",
+    "respiteful:yellow_tea_ice_cream_block",
+    "respiteful:black_tea_ice_cream_block",
+    "respiteful:coffee_ice_cream_block"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#i#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:snow_block"
+    },
+    "i": {
+      "item": "respiteful:coffee_ice_cream"
+    }
+  },
+  "result": {
+    "item": "respiteful:coffee_ice_cream_block"
+  }
+}

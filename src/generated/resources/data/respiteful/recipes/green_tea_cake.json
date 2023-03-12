@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "msm",
+    "tet",
+    "www"
+  ],
+  "key": {
+    "m": {
+      "tag": "forge:milk"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "t": {
+      "item": "farmersrespite:green_tea_leaves"
+    },
+    "e": {
+      "tag": "forge:eggs"
+    },
+    "w": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "respiteful:green_tea_cake"
+  }
+}

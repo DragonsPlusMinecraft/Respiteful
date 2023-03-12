@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cake_slice1",
+  "textures": {
+    "particle": "respiteful:block/yellow_tea_cake_side",
+    "bottom": "respiteful:block/yellow_tea_cake_bottom",
+    "top": "respiteful:block/yellow_tea_cake_top",
+    "side": "respiteful:block/yellow_tea_cake_side",
+    "inside": "respiteful:block/yellow_tea_cake_inner"
+  }
+}

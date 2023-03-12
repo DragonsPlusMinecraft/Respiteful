@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:coffee_ice_cream_block"
+    ]
+  },
+  "criteria": {
+    "has_snow_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:snow_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_ice_cream": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "respiteful:coffee_ice_cream"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:coffee_ice_cream_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_snow_block",
+      "has_ice_cream",
+      "has_the_recipe"
+    ]
+  ]
+}

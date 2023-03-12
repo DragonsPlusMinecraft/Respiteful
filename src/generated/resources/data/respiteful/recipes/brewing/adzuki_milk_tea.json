@@ -1,0 +1,20 @@
+{
+  "type": "farmersrespite:brewing",
+  "ingredients": [
+    {
+      "item": "neapolitan:roasted_adzuki_beans"
+    },
+    {
+      "item": "farmersrespite:black_tea_leaves"
+    }
+  ],
+  "result": {
+    "item": "respiteful:adzuki_milk_tea"
+  },
+  "container": {
+    "item": "farmersdelight:milk_bottle"
+  },
+  "experience": 0.35,
+  "brewingtime": 2400,
+  "needwater": false
+}

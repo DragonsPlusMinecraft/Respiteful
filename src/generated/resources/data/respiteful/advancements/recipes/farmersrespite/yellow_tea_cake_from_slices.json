@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:yellow_tea_cake_from_slices"
+    ]
+  },
+  "criteria": {
+    "has_yellow_tea_cake_slice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "respiteful:yellow_tea_cake_slice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:yellow_tea_cake_from_slices"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_yellow_tea_cake_slice",
+      "has_the_recipe"
+    ]
+  ]
+}

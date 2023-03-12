@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "respiteful:snow_top_black_tea"
+    ]
+  },
+  "criteria": {
+    "has_black_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "farmersrespite:black_tea"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "respiteful:snow_top_black_tea"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_black_tea",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    },
+    {
+      "item": "respiteful:yellow_tea_cake_slice"
+    }
+  ],
+  "result": {
+    "item": "respiteful:yellow_tea_cake"
+  }
+}
