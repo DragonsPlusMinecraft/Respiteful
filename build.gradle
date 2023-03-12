@@ -118,8 +118,9 @@ dependencies {
     implementation fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_file}")
     implementation fg.deobf("curse.maven:farmers-respite-551453:${farmersrespite_file}")
 
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
     compileOnly fg.deobf("squeek.appleskin:appleskin-forge:mc${appleskin_minecraft_version}-${appleskin_version}:api")
     runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:mc${appleskin_minecraft_version}-${appleskin_version}")
 

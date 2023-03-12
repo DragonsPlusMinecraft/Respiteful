@@ -22,7 +22,7 @@ public class ExtendEffectDrinkItem extends SnowTopDrinkItem {
             Math.min(effect.getDuration() * 2, RespitefulConfig.COMMON.snowTopDrinkEffectMaxDuration.get()),
             effect.getAmplifier() - 1,
             effect.isAmbient(), effect.isVisible(), effect.showIcon(),
-            ((MobEffectInstanceAccessor) effect).getHiddenEffect());
+            null, effect.getEffect().createFactorData());
     }
     
 }

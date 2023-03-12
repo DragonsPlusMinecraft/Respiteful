@@ -1,10 +1,5 @@
 package plus.dragons.respiteful.entries;
 
-import com.farmersrespite.core.registry.FREffects;
-import com.farmersrespite.core.registry.FRItems;
-import com.farmersrespite.core.utility.FRFoods;
-import com.farmersrespite.data.builder.KettleRecipeBuilder;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
@@ -37,6 +32,10 @@ import plus.dragons.respiteful.RespitefulRegistrate;
 import plus.dragons.respiteful.common.item.*;
 import plus.dragons.respiteful.core.extension.ModifiableFoodProperties;
 import plus.dragons.respiteful.data.RespitefulRecipes;
+import umpaz.farmersrespite.common.FRFoodValues;
+import umpaz.farmersrespite.common.registry.FREffects;
+import umpaz.farmersrespite.common.registry.FRItems;
+import umpaz.farmersrespite.data.builder.KettleRecipeBuilder;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -56,7 +55,7 @@ public class RespitefulItems {
         prop -> new TeaItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.MINT_GREEN_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
         .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry())
+            .kettleRecipe(ctx.getEntry(), 1, 2400, true, 0.35F)
             .addIngredient(NeapolitanItems.MINT_LEAVES.get())
             .addIngredient(FRItems.GREEN_TEA_LEAVES.get())
             .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
@@ -66,7 +65,7 @@ public class RespitefulItems {
             prop -> new TeaItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.VANILLA_MILK_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
         .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+            .kettleRecipe(ctx.getEntry(), 1, 2400, false, 0.35F, ModItems.MILK_BOTTLE.get())
             .addIngredient(NeapolitanItems.DRIED_VANILLA_PODS.get())
             .addIngredient(FRItems.YELLOW_TEA_LEAVES.get())
             .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
@@ -76,7 +75,7 @@ public class RespitefulItems {
             prop -> new TeaItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.ADZUKI_MILK_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
         .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+            .kettleRecipe(ctx.getEntry(), 1, 2400, false, 0.35F, ModItems.MILK_BOTTLE.get())
             .addIngredient(NeapolitanItems.ROASTED_ADZUKI_BEANS.get())
             .addIngredient(FRItems.BLACK_TEA_LEAVES.get())
             .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
@@ -86,7 +85,7 @@ public class RespitefulItems {
             prop -> new CoffeeItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.MOCHA_COFFEE).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
         .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+            .kettleRecipe(ctx.getEntry(), 1, 2400, false, 0.35F, ModItems.MILK_BOTTLE.get())
             .addIngredient(NeapolitanItems.CHOCOLATE_BAR.get())
             .addIngredient(FRItems.COFFEE_BEANS.get())
             .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
@@ -264,73 +263,35 @@ public class RespitefulItems {
             return ((ModifiableFoodProperties)food).respiteful$copy();
         }
         
-        private static final List<FoodProperties> FOODS_CAN_ALWAYS_EAT = ImmutableList.<FoodProperties>builder()
-            .add(MINT_GREEN_TEA)
-            .add(VANILLA_MILK_TEA)
-            .add(ADZUKI_MILK_TEA)
-            .add(MOCHA_COFFEE)
-            .add(FRFoods.GREEN_TEA)
-            .add(FRFoods.YELLOW_TEA)
-            .add(FRFoods.BLACK_TEA)
-            .add(FRFoods.ROSE_HIP_TEA)
-            .add(FRFoods.DANDELION_TEA)
-            .add(FRFoods.PURULENT_TEA)
-            .add(FRFoods.COFFEE)
-            .add(FRFoods.LONG_GREEN_TEA)
-            .add(FRFoods.LONG_YELLOW_TEA)
-            .add(FRFoods.LONG_BLACK_TEA)
-            .add(FRFoods.LONG_ROSE_HIP_TEA)
-            .add(FRFoods.LONG_DANDELION_TEA)
-            .add(FRFoods.LONG_COFFEE)
-            .add(FRFoods.LONG_APPLE_CIDER)
-            .add(FRFoods.STRONG_GREEN_TEA)
-            .add(FRFoods.STRONG_YELLOW_TEA)
-            .add(FRFoods.STRONG_BLACK_TEA)
-            .add(FRFoods.STRONG_ROSE_HIP_TEA)
-            .add(FRFoods.STRONG_PURULENT_TEA)
-            .add(FRFoods.STRONG_COFFEE)
-            .add(FRFoods.STRONG_APPLE_CIDER)
-            .build();
-    
-        /**
-         * For setting Farmer's Respite drinks drinkable even when the player if full.
-         * @param canAlwaysEat Whether this method is called for setting the original effects back.
-         */
-        public static void setDrinksCanAlwaysEat(boolean canAlwaysEat) {
-            for (var food : FOODS_CAN_ALWAYS_EAT) {
-                ((ModifiableFoodProperties)food).respiteful$setCanAlwaysEat(canAlwaysEat);
-            }
-        }
-        
         private static final Map<
             FoodProperties,
             Pair<List<Pair<Supplier<MobEffectInstance>, Float>>, List<Pair<Supplier<MobEffectInstance>, Float>>>
         > FOOD_EFFECTS_REPLACEMENTS = new HashMap<>();
         static {
-            addReplacement(FRFoods.GREEN_TEA,
+            addReplacement(FRFoodValues.GREEN_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 1800), 1F));
-            addReplacement(FRFoods.LONG_GREEN_TEA,
+            addReplacement(FRFoodValues.LONG_GREEN_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 3600), 1F));
-            addReplacement(FRFoods.STRONG_GREEN_TEA,
+            addReplacement(FRFoodValues.STRONG_GREEN_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 1200, 1), 1F));
-            addReplacement(FRFoods.GREEN_TEA_COOKIE,
+            addReplacement(FRFoodValues.GREEN_TEA_COOKIE,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 100), 1F));
-            addReplacement(FRFoods.YELLOW_TEA,
+            addReplacement(FRFoodValues.YELLOW_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 1800), 1F));
-            addReplacement(FRFoods.LONG_YELLOW_TEA,
+            addReplacement(FRFoodValues.LONG_YELLOW_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 3600), 1F));
-            addReplacement(FRFoods.STRONG_YELLOW_TEA,
+            addReplacement(FRFoodValues.STRONG_YELLOW_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 1200, 1), 1F));
-            addReplacement(FRFoods.TEA_CURRY,
+            addReplacement(FRFoodValues.TEA_CURRY,
                 new Pair<>(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 3600, 0), 1F),
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 600), 1F));
-            addReplacement(FRFoods.BLACK_TEA,
+            addReplacement(FRFoodValues.BLACK_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 1800), 1F));
-            addReplacement(FRFoods.LONG_BLACK_TEA,
+            addReplacement(FRFoodValues.LONG_BLACK_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 3600), 1F));
-            addReplacement(FRFoods.STRONG_BLACK_TEA,
+            addReplacement(FRFoodValues.STRONG_BLACK_TEA,
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 1200, 1), 1F));
-            addReplacement(FRFoods.BLACK_COD,
+            addReplacement(FRFoodValues.BLACK_COD,
                 new Pair<>(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 3600, 0), 1F),
                 new Pair<>(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 600), 1F));
         }

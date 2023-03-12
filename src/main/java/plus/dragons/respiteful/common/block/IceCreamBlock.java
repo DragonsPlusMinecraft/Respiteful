@@ -2,7 +2,6 @@ package plus.dragons.respiteful.common.block;
 
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanBlocks;
-import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;

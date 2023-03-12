@@ -1,6 +1,5 @@
 package plus.dragons.respiteful.entries;
 
-import com.farmersrespite.core.registry.FRItems;
 import com.google.common.collect.ImmutableMap;
 import com.teamabnormals.neapolitan.common.block.FlavoredCakeBlock;
 import com.teamabnormals.neapolitan.common.block.FlavoredCandleCakeBlock;
@@ -13,14 +12,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import plus.dragons.respiteful.common.block.IceCreamBlock;
 import plus.dragons.respiteful.data.RespitefulBlockStates;
 import plus.dragons.respiteful.data.RespitefulBlockTags;
 import plus.dragons.respiteful.data.RespitefulRecipes;
 import plus.dragons.respiteful.entries.RespitefulItems.RespitefulFoods;
+import umpaz.farmersrespite.common.registry.FRItems;
 
 import java.util.LinkedHashMap;
 

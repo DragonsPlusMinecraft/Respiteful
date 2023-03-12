@@ -21,7 +21,7 @@ public class StrengthenEffectDrinkItem extends SnowTopDrinkItem {
         return new MobEffectInstance(effect.getEffect(),
             effect.getDuration() / 2, amplifier + 1,
             effect.isAmbient(), effect.isVisible(), effect.showIcon(),
-            ((MobEffectInstanceAccessor) effect).getHiddenEffect());
+            ((MobEffectInstanceAccessor) effect).getHiddenEffect(), effect.getEffect().createFactorData());
     }
     
 }

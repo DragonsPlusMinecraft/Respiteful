@@ -1,20 +1,18 @@
 package plus.dragons.respiteful;
 
-import com.farmersrespite.core.FarmersRespite;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import plus.dragons.respiteful.entries.RespitefulBlocks;
 import plus.dragons.respiteful.entries.RespitefulItems;
 import plus.dragons.respiteful.entries.RespitefulMobEffects;
 import plus.dragons.respiteful.integration.AppleSkinIntegration;
+import umpaz.farmersrespite.FarmersRespite;
 
 @Mod(Respiteful.ID)
 public class Respiteful {

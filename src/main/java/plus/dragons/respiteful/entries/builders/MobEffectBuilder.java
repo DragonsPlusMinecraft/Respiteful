@@ -11,6 +11,7 @@ import com.tterrag.registrate.util.nullness.NonNullBiFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -71,7 +72,7 @@ public class MobEffectBuilder<T extends MobEffect, P> extends AbstractBuilder<Mo
     }
     
     /**
-     * Assign the default translation, as specified by {@link RegistrateLangProvider#getAutomaticName(NonNullSupplier)}.
+     * Assign the default translation, as specified by {@link RegistrateLangProvider#getAutomaticName(NonNullSupplier, ResourceKey)}.
      * This is the default, so it is generally not necessary to call, unless for undoing previous changes.
      *
      * @return this {@link MobEffectBuilder}
@@ -92,7 +93,7 @@ public class MobEffectBuilder<T extends MobEffect, P> extends AbstractBuilder<Mo
     }
     
     /**
-     * Set the lang key for this entry to the default value (specified by {@link RegistrateLangProvider#getAutomaticName(NonNullSupplier)}). Generally, specific helpers from concrete builders should be used
+     * Set the lang key for this entry to the default value (specified by {@link RegistrateLangProvider#getAutomaticName(NonNullSupplier, ResourceKey)}). Generally, specific helpers from concrete builders should be used
      * instead.
      *
      * @param langKeyProvider
@@ -101,7 +102,7 @@ public class MobEffectBuilder<T extends MobEffect, P> extends AbstractBuilder<Mo
      */
     @Override
     public MobEffectBuilder<T, P> lang(NonNullFunction<T, String> langKeyProvider) {
-        return lang(langKeyProvider, RegistrateLangProvider::getAutomaticName);
+        return lang(langKeyProvider, (p, t) -> p.getAutomaticName(t, getRegistryKey()));
     }
     
     /**

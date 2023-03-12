@@ -1,11 +1,11 @@
 package plus.dragons.respiteful.common.item;
 
-import com.farmersrespite.core.registry.FRItems;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import umpaz.farmersrespite.common.registry.FRItems;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
 /**
