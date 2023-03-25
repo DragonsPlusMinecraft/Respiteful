@@ -35,7 +35,7 @@ public class RespitefulBlockStates {
             .forAllStates(state -> {
                 boolean lit = state.getValue(AbstractCandleBlock.LIT);
                 String name = lit ? ctx.getName() + "_lit" : ctx.getName();
-                String candle = "minecraft:block/" + ForgeRegistries.BLOCKS.getKey(ctx.getEntry().getCandle()).getPath() + (lit ? "" : "_lit");
+                String candle = "minecraft:block/" + ForgeRegistries.BLOCKS.getKey(ctx.getEntry().getCandle()).getPath() + (lit ? "_lit" : "");
                 String textureBaseName = "block/" + ForgeRegistries.BLOCKS.getKey(ctx.get().getCake()).getPath();
                 return ConfiguredModel.builder().modelFile(
                     prov.models().withExistingParent(name, new ResourceLocation("block/template_cake_with_candle"))

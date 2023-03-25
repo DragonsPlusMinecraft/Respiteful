@@ -5,6 +5,6 @@
     "bottom": "respiteful:block/black_tea_cake_bottom",
     "top": "respiteful:block/black_tea_cake_top",
     "side": "respiteful:block/black_tea_cake_side",
-    "candle": "minecraft:block/black_candle"
+    "candle": "minecraft:block/black_candle_lit"
   }
 }
