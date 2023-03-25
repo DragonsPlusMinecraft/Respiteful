@@ -22,7 +22,7 @@ public class RespitefulRecipes {
                                      NonNullSupplier<? extends Item> iceCreamIn) {
         var iceCream = DataIngredient.items(iceCreamIn);
         var snowBlock = DataIngredient.items(Items.SNOW_BLOCK);
-        ShapedRecipeBuilder.shaped(ctx.getEntry())
+        ShapedRecipeBuilder.shaped(ctx.getEntry(), 8)
             .define('#', Items.SNOW_BLOCK)
             .define('i', iceCream)
             .pattern("###").pattern("#i#").pattern("###")
@@ -70,8 +70,8 @@ public class RespitefulRecipes {
     public static void snowTopDrink(DataGenContext<Item, ? extends Item> ctx, RegistrateRecipeProvider prov,
                                     NonNullSupplier<? extends Item> ingredientIn) {
         var ingredient = DataIngredient.items(ingredientIn);
-        ShapelessRecipeBuilder.shapeless(ctx.getEntry())
-            .requires(Items.GLASS_BOTTLE, 3)
+        ShapelessRecipeBuilder.shapeless(ctx.getEntry(), 2)
+            .requires(Items.GLASS_BOTTLE, 2)
             .requires(NeapolitanItems.VANILLA_ICE_CREAM.get())
             .requires(ingredient)
             .requires(ForgeTags.MILK)

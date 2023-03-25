@@ -96,6 +96,10 @@ repositories {
         url "https://maven.ryanliptak.com/"
     }
     maven {
+        name "JitPack"
+        url 'https://jitpack.io'
+    }
+    maven {
         name "Curse Maven"
         url "https://www.cursemaven.com"
         content {
@@ -107,11 +111,16 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    jarJar(group: 'com.github.LlamaLad7', name: "MixinExtras", version: "[${mixin_extras_version},)") {
+        transitive = false
+        jarJar.pin(it, project.mixin_extras_version)
+    }
+    minecraftLibrary "com.github.LlamaLad7:MixinExtras:${mixin_extras_version}"
+    annotationProcessor "com.github.LlamaLad7:MixinExtras:${mixin_extras_version}"
     jarJar(group: "com.tterrag.registrate", name: "Registrate", version: "[${registrate_version},)") {
         transitive = false
         jarJar.pin(it, project.registrate_version)
     }
-
     implementation  fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("com.teamabnormals:blueprint:${blueprint_version}")
     implementation fg.deobf("curse.maven:neapolitan-382016:${neapolitan_file}")

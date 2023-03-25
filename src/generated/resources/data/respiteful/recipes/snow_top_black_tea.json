@@ -8,9 +8,6 @@
       "item": "minecraft:glass_bottle"
     },
     {
-      "item": "minecraft:glass_bottle"
-    },
-    {
       "item": "neapolitan:vanilla_ice_cream"
     },
     {
@@ -21,6 +18,7 @@
     }
   ],
   "result": {
+    "count": 2,
     "item": "respiteful:snow_top_black_tea"
   }
 }

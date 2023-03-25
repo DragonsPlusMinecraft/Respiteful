@@ -5,13 +5,13 @@
       "item": "respiteful:yellow_tea_cake"
     }
   ],
-  "tool": {
-    "tag": "forge:tools/knives"
-  },
   "result": [
     {
-      "item": "respiteful:yellow_tea_cake_slice",
-      "count": 7
+      "count": 7,
+      "item": "respiteful:yellow_tea_cake_slice"
     }
-  ]
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  }
 }

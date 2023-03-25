@@ -1,5 +1,7 @@
 {
   "type": "farmersrespite:brewing",
+  "cookingtime": 2400,
+  "experience": 0.35,
   "ingredients": [
     {
       "item": "neapolitan:mint_leaves"
@@ -8,10 +10,8 @@
       "item": "farmersrespite:green_tea_leaves"
     }
   ],
+  "needwater": true,
   "result": {
     "item": "respiteful:mint_green_tea"
-  },
-  "experience": 0.35,
-  "brewingtime": 2400,
-  "needwater": true
+  }
 }
