@@ -2,7 +2,7 @@
   "parent": "minecraft:block/template_cake_with_candle",
   "textures": {
     "bottom": "respiteful:block/black_tea_cake_bottom",
-    "candle": "minecraft:block/light_gray_candle",
+    "candle": "minecraft:block/light_gray_candle_lit",
     "particle": "respiteful:block/black_tea_cake_side",
     "side": "respiteful:block/black_tea_cake_side",
     "top": "respiteful:block/black_tea_cake_top"
