@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "respiteful:coffee_ice_cream"
+              "minecraft:snow_block"
             ]
           }
         ]
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "minecraft:snow_block"
+              "respiteful:coffee_ice_cream"
             ]
           }
         ]

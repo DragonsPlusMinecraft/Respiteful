@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "respiteful:green_tea_ice_cream"
+              "minecraft:snow_block"
             ]
           }
         ]
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "minecraft:snow_block"
+              "respiteful:green_tea_ice_cream"
             ]
           }
         ]
