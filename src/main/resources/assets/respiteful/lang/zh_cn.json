@@ -58,9 +58,9 @@
   "block.respiteful.yellow_tea_cake": "黄茶蛋糕",
   "block.respiteful.yellow_tea_ice_cream_block": "黄茶冰淇淋块",
   "effect.respiteful.maturity": "醇熟",
-  "effect.respiteful.maturity.description": "提升食用时恢复的饥饿值，等级越高，恢复的饥饿值越多",
+  "effect.respiteful.maturity.description": "免疫食物中的有害效果并提升食用时恢复的饥饿值，等级越高，恢复的饥饿值越多",
   "effect.respiteful.tenacity": "坚韧",
-  "effect.respiteful.tenacity.description": "提升盔甲韧性，等级越高，提升的盔甲韧性越多",
+  "effect.respiteful.tenacity.description": "提升盔甲韧性和击退抗性，等级越高，提升的盔甲韧性和击退抗性越多",
   "effect.respiteful.vitality": "活力",
   "effect.respiteful.vitality.description": "提供对凋零效果的抗性并提升生命恢复量，等级越高，提供的凋零抗性越强，生命恢复量越多",
   "item.respiteful.adzuki_milk_tea": "红豆奶茶",
@@ -79,8 +79,8 @@
   "item.respiteful.vanilla_milk_tea": "香草奶茶",
   "item.respiteful.yellow_tea_cake_slice": "黄茶蛋糕切片",
   "item.respiteful.yellow_tea_ice_cream": "黄茶冰淇淋",
-  "tooltip.respiteful.snow_top_black_tea": "延长并减弱所有正面效果",
-  "tooltip.respiteful.snow_top_coffee": "缩短并增强所有负面效果",
-  "tooltip.respiteful.snow_top_green_tea": "增强并缩短所有正面效果",
-  "tooltip.respiteful.snow_top_yellow_tea": "减弱并延长所有负面效果"
+  "tooltip.respiteful.snow_top_black_tea": "延长并减弱所有有益效果",
+  "tooltip.respiteful.snow_top_coffee": "缩短并增强所有有害效果",
+  "tooltip.respiteful.snow_top_green_tea": "增强并缩短所有有益效果",
+  "tooltip.respiteful.snow_top_yellow_tea": "减弱并延长所有有害效果"
 }

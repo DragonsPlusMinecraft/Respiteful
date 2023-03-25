@@ -121,13 +121,13 @@ public class RespitefulItems {
         .register();
     
     public static final ItemEntry<Item> GREEN_TEA_CAKE_SLICE = cakeSlice(RespitefulBlocks.GREEN_TEA_CAKE,
-        RespitefulFoods.GREEN_TEA_CAKE_SLICE).register();
+        RespitefulFoods.GREEN_TEA_CAKE_SLICE).lang("Slice of Green Tea Cake").register();
     
     public static final ItemEntry<Item> YELLOW_TEA_CAKE_SLICE = cakeSlice(RespitefulBlocks.YELLOW_TEA_CAKE,
-        RespitefulFoods.YELLOW_TEA_CAKE_SLICE).register();
+        RespitefulFoods.YELLOW_TEA_CAKE_SLICE).lang("Slice of Yellow Tea Cake").register();
     
     public static final ItemEntry<Item> BLACK_TEA_CAKE_SLICE = cakeSlice(RespitefulBlocks.BLACK_TEA_CAKE,
-        RespitefulFoods.BLACK_TEA_CAKE_SLICE).register();
+        RespitefulFoods.BLACK_TEA_CAKE_SLICE).lang("Slice of Black Tea Cake").register();
     
     public static final ItemEntry<BowlFoodItem> GREEN_TEA_ICE_CREAM = iceCream("green_tea_ice_cream",
         RespitefulFoods.GREEN_TEA_ICE_CREAM)

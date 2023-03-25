@@ -28,15 +28,18 @@ public class RespitefulMobEffects {
         .register();
     
     public static final RegistryEntry<MobEffect> TENACITY = REGISTRATE.mobEffect("tenacity")
-        .description("Increases armor toughness; higher levels gives more armor toughness.")
+        .description("Increases armor toughness and knockback resistance; higher levels gives more armor toughness and knockback resistance.")
         .category(MobEffectCategory.BENEFICIAL)
         .color(0xECCB45)
-        .onRegister(effect -> effect.addAttributeModifier(Attributes.ARMOR_TOUGHNESS,
-            "6624c857-48be-49ff-921b-15172d3c19c1", 2, AttributeModifier.Operation.ADDITION))
+        .onRegister(effect -> effect
+            .addAttributeModifier(Attributes.ARMOR_TOUGHNESS,
+            "6624c857-48be-49ff-921b-15172d3c19c1", 2, AttributeModifier.Operation.ADDITION)
+            .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE,
+            "d673225e-8a54-4362-987f-5e82f7ca99e3", 0.2, AttributeModifier.Operation.ADDITION))
         .register();
     
     public static final RegistryEntry<MobEffect> MATURITY = REGISTRATE.mobEffect("maturity")
-        .description("Increases food restore when eating; higher levels restores more food.")
+        .description("Grants immunity for harmful effects from food and increases food restore when eating; higher levels restores more food.")
         .category(MobEffectCategory.BENEFICIAL)
         .color(0x783E27)
         .register();
