@@ -192,67 +192,67 @@ public class RespitefulItems {
     
     
     public static class RespitefulFoods {
-        public static final FoodProperties MINT_GREEN_TEA = new FoodProperties.Builder()
+        public static final FoodProperties MINT_GREEN_TEA = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 1200), 1F)
             .effect(() -> new MobEffectInstance(NeapolitanMobEffects.BERSERKING.get(), 1200), 1F)
             .build();
-        public static final FoodProperties VANILLA_MILK_TEA = new FoodProperties.Builder()
+        public static final FoodProperties VANILLA_MILK_TEA = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 1200), 1F)
             .effect(() -> new MobEffectInstance(NeapolitanMobEffects.VANILLA_SCENT.get(), 1200), 1F)
             .build();
-        public static final FoodProperties ADZUKI_MILK_TEA = new FoodProperties.Builder()
+        public static final FoodProperties ADZUKI_MILK_TEA = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 1200), 1F)
             .effect(() -> new MobEffectInstance(NeapolitanMobEffects.HARMONY.get(), 1200), 1F)
             .build();
-        public static final FoodProperties MOCHA_COFFEE = new FoodProperties.Builder()
+        public static final FoodProperties MOCHA_COFFEE = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(NeapolitanMobEffects.SUGAR_RUSH.get(), 3600), 1F)
             .effect(() -> new MobEffectInstance(FREffects.CAFFEINATED.get(), 6000), 1F)
             .build();
         public static final FoodProperties SNOW_TOP_DRINK = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.6F).build();
         public static final FoodProperties GREEN_TEA_CAKE = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.1F).fast()
+            .nutrition(2).saturationMod(0.1F).fast().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 400), 1F)
             .build();
         public static final FoodProperties GREEN_TEA_CAKE_SLICE = copy(GREEN_TEA_CAKE)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400), 1F)
             .build();
         public static final FoodProperties YELLOW_TEA_CAKE = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.1F).fast()
+            .nutrition(2).saturationMod(0.1F).fast().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 400), 1F)
             .build();
         public static final FoodProperties YELLOW_TEA_CAKE_SLICE = copy(YELLOW_TEA_CAKE)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400), 1F)
             .build();
         public static final FoodProperties BLACK_TEA_CAKE = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.1F).fast()
+            .nutrition(2).saturationMod(0.1F).fast().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 400), 1F)
             .build();
         public static final FoodProperties BLACK_TEA_CAKE_SLICE = copy(BLACK_TEA_CAKE)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400), 1F)
             .build();
         public static final FoodProperties GREEN_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F)
+            .nutrition(6).saturationMod(0.4F).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties YELLOW_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F)
+            .nutrition(6).saturationMod(0.4F).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties BLACK_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F)
+            .nutrition(6).saturationMod(0.4F).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties COFFEE_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F)
+            .nutrition(6).saturationMod(0.4F).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
             .effect(() -> new MobEffectInstance(FREffects.CAFFEINATED.get(), 1200, 2), 1F)
             .build();
         public static final FoodProperties RESPITEFUL_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(12).saturationMod(0.4F)
+            .nutrition(12).saturationMod(0.4F).alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 900), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 900), 1F)
