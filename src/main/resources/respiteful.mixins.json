@@ -7,10 +7,10 @@
     "FoodDataMixin",
     "FoodPropertiesMixin",
     "LivingEntityMixin",
-    "MobEffectInstanceAccessor",
-    "TextUtilsMixin"
+    "MobEffectInstanceAccessor"
   ],
   "client": [
+    "TextUtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
