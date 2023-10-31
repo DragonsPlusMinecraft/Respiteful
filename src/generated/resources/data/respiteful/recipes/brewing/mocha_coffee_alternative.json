@@ -1,0 +1,20 @@
+{
+  "type": "farmersrespite:brewing",
+  "ingredients": [
+    {
+      "item": "neapolitan:chocolate_bar"
+    },
+    {
+      "item": "farmersrespite:coffee_beans"
+    }
+  ],
+  "result": {
+    "item": "respiteful:mocha_coffee"
+  },
+  "container": {
+    "item": "neapolitan:milk_bottle"
+  },
+  "experience": 0.35,
+  "brewingtime": 2400,
+  "needwater": false
+}

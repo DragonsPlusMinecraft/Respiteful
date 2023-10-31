@@ -65,31 +65,52 @@ public class RespitefulItems {
     public static final ItemEntry<TeaItem> VANILLA_MILK_TEA = REGISTRATE.item("vanilla_milk_tea",
             prop -> new TeaItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.VANILLA_MILK_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
-        .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
-            .addIngredient(NeapolitanItems.DRIED_VANILLA_PODS.get())
-            .addIngredient(FRItems.YELLOW_TEA_LEAVES.get())
-            .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
+        .recipe((ctx, prov) -> {
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.DRIED_VANILLA_PODS.get())
+                    .addIngredient(FRItems.YELLOW_TEA_LEAVES.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName()));
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400,  0.35F, false, NeapolitanItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.DRIED_VANILLA_PODS.get())
+                    .addIngredient(FRItems.YELLOW_TEA_LEAVES.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName() + "_alternative"));
+        })
         .register();
     
     public static final ItemEntry<TeaItem> ADZUKI_MILK_TEA = REGISTRATE.item("adzuki_milk_tea",
             prop -> new TeaItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.ADZUKI_MILK_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
-        .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
-            .addIngredient(NeapolitanItems.ROASTED_ADZUKI_BEANS.get())
-            .addIngredient(FRItems.BLACK_TEA_LEAVES.get())
-            .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
+        .recipe((ctx, prov) -> {
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.ROASTED_ADZUKI_BEANS.get())
+                    .addIngredient(FRItems.BLACK_TEA_LEAVES.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName()));
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, NeapolitanItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.ROASTED_ADZUKI_BEANS.get())
+                    .addIngredient(FRItems.BLACK_TEA_LEAVES.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName() + "_alternative"));
+        })
         .register();
     
     public static final ItemEntry<CoffeeItem> MOCHA_COFFEE = REGISTRATE.item("mocha_coffee",
             prop -> new CoffeeItem(prop, true))
         .properties(prop -> prop.food(RespitefulFoods.MOCHA_COFFEE).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
-        .recipe((ctx, prov) -> KettleRecipeBuilder
-            .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
-            .addIngredient(NeapolitanItems.CHOCOLATE_BAR.get())
-            .addIngredient(FRItems.COFFEE_BEANS.get())
-            .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName())))
+        .recipe((ctx, prov) -> {
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, ModItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.CHOCOLATE_BAR.get())
+                    .addIngredient(FRItems.COFFEE_BEANS.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName()));
+            KettleRecipeBuilder
+                    .kettleRecipe(ctx.getEntry(), 1, 2400, 0.35F, false, NeapolitanItems.MILK_BOTTLE.get())
+                    .addIngredient(NeapolitanItems.CHOCOLATE_BAR.get())
+                    .addIngredient(FRItems.COFFEE_BEANS.get())
+                    .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "brewing/" + ctx.getName() + "_alternative"));
+        })
         .register();
     
     public static final ItemEntry<StrengthenEffectDrinkItem> SNOW_TOP_GREEN_TEA = REGISTRATE.item("snow_top_green_tea",
