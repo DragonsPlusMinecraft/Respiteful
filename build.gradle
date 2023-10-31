@@ -3,9 +3,10 @@ plugins {
     id 'org.spongepowered.mixin'
     id 'org.parchmentmc.librarian.forgegradle'
     id 'maven-publish'
+    id "me.modmuss50.mod-publish-plugin" version "0.4.0"
 }
 
-archivesBaseName = "${modid}-${minecraft_version}"
+archivesBaseName = "${modid}-${mod_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -139,7 +140,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 processResources {
     def properties = [
         "author":                       project.author,
-        "version":                      project.version,
+        "version":                      project.mod_version,
         "fml_version_spec":             project.fml_version_spec,
         "minecraft_version_spec":       project.minecraft_version_spec,
         "forge_version_spec":           project.forge_version_spec,
@@ -167,6 +168,37 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 'MixinConfigs': "${modid}.mixins.json"
         ])
+    }
+}
+
+publishMods {
+    file = tasks.jarJar.archiveFile
+    changelog = new File("changelog/${mod_version}.md").text
+    version = mod_version
+    type = STABLE
+    displayName = "Respiteful${version} for ${minecraft_version}"
+    modLoaders.add("forge")
+
+    curseforge {
+        projectId = "836471"
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(minecraft_version)
+
+        requires {
+            slug = "neapolitan"
+            slug = "farmers-respite"
+        }
+    }
+
+    modrinth {
+        projectId = "Df7RucLK"
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(minecraft_version)
+
+        requires {
+            slug = "neapolitan"
+            slug = "farmers-respite"
+        }
     }
 }
 
