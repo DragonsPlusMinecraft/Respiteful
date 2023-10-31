@@ -177,7 +177,7 @@ publishMods {
     changelog = new File("changelog/${mod_version}.md").text
     version = mod_version
     type = STABLE
-    displayName = "Respiteful${version} for ${minecraft_version}"
+    displayName = "Respiteful ${mod_version} for ${minecraft_version}"
     modLoaders.add("forge")
 
     curseforge {
