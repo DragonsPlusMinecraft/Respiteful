@@ -213,12 +213,6 @@ tasks.jarJar {
 tasks.jarJar.finalizedBy(reobf.maybeCreate("jarJar"))
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact tasks.jarJar
-        }
-    }
     repositories {
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
