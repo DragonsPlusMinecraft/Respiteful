@@ -1,4 +1,4 @@
-package plus.dragons.respiteful.integration;
+package plus.dragons.respiteful.integration.appleskin;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import plus.dragons.respiteful.entries.RespitefulMobEffects;

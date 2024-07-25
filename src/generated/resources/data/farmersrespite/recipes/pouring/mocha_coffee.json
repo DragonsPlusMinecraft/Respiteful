@@ -4,8 +4,8 @@
   "container": {
     "item": "minecraft:glass_bottle"
   },
-  "fluid": "respiteful:vanilla_milk_tea",
+  "fluid": "respiteful:flowing_mocha_coffee",
   "output": {
-    "item": "respiteful:vanilla_milk_tea"
+    "item": "respiteful:mocha_coffee"
   }
 }

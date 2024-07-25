@@ -24,7 +24,7 @@ import umpaz.farmersrespite.data.builder.KettleRecipeBuilder;
 import static plus.dragons.respiteful.Respiteful.REGISTRATE;
 
 public class RespitefulFluids {
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MINT_GREEN_TEA = tea("mint_green_tea", 0x3CA874)
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MINT_GREEN_TEA = tea("mint_green_tea", -3975284)
         .setData(ProviderType.RECIPE, (ctx, prov) -> {
             var source = ctx.get().getSource();
             var sourceId = ForgeRegistries.FLUIDS.getKey(source);
@@ -39,11 +39,10 @@ public class RespitefulFluids {
                 .addIngredient(NeapolitanItems.MINT_LEAVES.get())
                 .addIngredient(FRItems.GREEN_TEA_LEAVES.get())
                 .build(prov, sourceId.withPrefix("brewing/"));
-            prov.accept(kettlePouring(sourceId, source, 250, Items.GLASS_BOTTLE, RespitefulItems.MINT_GREEN_TEA));
         })
         .register();
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> VANILLA_MILK_TEA = tea("vanilla_milk_tea", 0xD6AA73)
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> VANILLA_MILK_TEA = tea("vanilla_milk_tea", -14068339)
         .setData(ProviderType.RECIPE, (ctx, prov) -> {
             var source = ctx.get().getSource();
             var sourceId = ForgeRegistries.FLUIDS.getKey(source);
@@ -58,11 +57,10 @@ public class RespitefulFluids {
                 .addIngredient(NeapolitanItems.DRIED_VANILLA_PODS.get())
                 .addIngredient(FRItems.YELLOW_TEA_LEAVES.get())
                 .build(prov, sourceId.withPrefix("brewing/"));
-            prov.accept(kettlePouring(sourceId, source, 250, Items.GLASS_BOTTLE, RespitefulItems.VANILLA_MILK_TEA));
         })
         .register();
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> ADZUKI_MILK_TEA = tea("adzuki_milk_tea", 0xC16E6B)
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> ADZUKI_MILK_TEA = tea("adzuki_milk_tea", -12676715)
         .setData(ProviderType.RECIPE, (ctx, prov) -> {
             var source = ctx.get().getSource();
             var sourceId = ForgeRegistries.FLUIDS.getKey(source);
@@ -77,11 +75,10 @@ public class RespitefulFluids {
                 .addIngredient(NeapolitanItems.ROASTED_ADZUKI_BEANS.get())
                 .addIngredient(FRItems.BLACK_TEA_LEAVES.get())
                 .build(prov, sourceId.withPrefix("brewing/"));
-            prov.accept(kettlePouring(sourceId, source, 250, Items.GLASS_BOTTLE, RespitefulItems.ADZUKI_MILK_TEA));
         })
         .register();
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOCHA_COFFEE = tea("mocha_coffee", 0x492B1B)
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOCHA_COFFEE = tea("mocha_coffee", -4795163)
         .setData(ProviderType.RECIPE, (ctx, prov) -> {
             var source = ctx.get().getSource();
             var sourceId = ForgeRegistries.FLUIDS.getKey(source);
@@ -96,7 +93,6 @@ public class RespitefulFluids {
                 .addIngredient(NeapolitanItems.CHOCOLATE_BAR.get())
                 .addIngredient(FRItems.COFFEE_BEANS.get())
                 .build(prov, sourceId.withPrefix("brewing/"));
-            prov.accept(kettlePouring(sourceId, source, 250, Items.GLASS_BOTTLE, RespitefulItems.MOCHA_COFFEE));
         })
         .register();
 
@@ -110,11 +106,7 @@ public class RespitefulFluids {
             TeaFluidType.FLUID_STILL_TEXTURE,
             TeaFluidType.FLUID_FLOWING_TEXTURE,
             (prop, still, flow) -> new TeaFluidType(tint)
-        ).noBlock().noBucket();
-    }
-
-    private static KettlePouringRecipeBuilder.Result kettlePouring(ResourceLocation id, Fluid fluid, int amount, ItemLike container, ItemLike result) {
-        return new KettlePouringRecipeBuilder.Result(id.withPrefix("pouring/"), new ItemStack(container), fluid, amount, new ItemStack(result));
+        ).noBucket().noBlock();
     }
 
 }
