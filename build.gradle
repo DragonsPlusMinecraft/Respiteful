@@ -5,6 +5,12 @@ plugins {
     id 'idea'
 }
 
+version = mod_version
+group = mod_group_id
+base {
+    archivesName = mod_artifact_id
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 legacyForge {
@@ -159,7 +165,7 @@ processResources {
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifactId = mod_id + "-" + minecraft_version
+            artifactId = mod_artifact_id + "-" + minecraft_version
             from components.java
         }
     }
