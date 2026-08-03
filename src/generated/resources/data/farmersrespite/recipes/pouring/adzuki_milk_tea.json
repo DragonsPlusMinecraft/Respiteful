@@ -4,7 +4,7 @@
   "container": {
     "item": "minecraft:glass_bottle"
   },
-  "fluid": "respiteful:flowing_adzuki_milk_tea",
+  "fluid": "respiteful:adzuki_milk_tea",
   "output": {
     "item": "respiteful:adzuki_milk_tea"
   }

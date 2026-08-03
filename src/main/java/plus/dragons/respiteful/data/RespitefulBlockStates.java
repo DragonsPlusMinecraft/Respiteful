@@ -1,12 +1,14 @@
 package plus.dragons.respiteful.data;
 
 import com.teamabnormals.neapolitan.common.block.FlavoredCandleCakeBlock;
+import com.teamabnormals.neapolitan.common.block.MilkshakeCauldronBlock;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CakeBlock;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -46,6 +48,24 @@ public class RespitefulBlockStates {
                         .texture("candle", candle)
                 ).build();
             });
+    }
+
+    public static void milkshakeCauldron(DataGenContext<Block, MilkshakeCauldronBlock> ctx,
+                                          RegistrateBlockstateProvider prov, ResourceLocation contentTexture) {
+        prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
+            int level = state.getValue(LayeredCauldronBlock.LEVEL);
+            String suffix = level == 3 ? "_full" : "_level" + level;
+            String parent = level == 3 ? "block/template_cauldron_full" : "block/template_cauldron_level" + level;
+            return ConfiguredModel.builder().modelFile(
+                prov.models().withExistingParent(ctx.getName() + suffix, parent)
+                    .texture("content", contentTexture)
+                    .texture("inside", "minecraft:block/cauldron_inner")
+                    .texture("particle", "minecraft:block/cauldron_side")
+                    .texture("top", "minecraft:block/cauldron_top")
+                    .texture("bottom", "minecraft:block/cauldron_bottom")
+                    .texture("side", "minecraft:block/cauldron_side")
+            ).build();
+        });
     }
 
 }

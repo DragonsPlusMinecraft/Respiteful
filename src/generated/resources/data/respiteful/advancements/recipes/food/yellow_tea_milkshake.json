@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "respiteful:yellow_tea_milkshake"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_tea_ice_cream": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "respiteful:yellow_tea_ice_cream"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_yellow_tea_ice_cream",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "respiteful:yellow_tea_milkshake"
+    ]
+  },
+  "sends_telemetry_event": false
+}

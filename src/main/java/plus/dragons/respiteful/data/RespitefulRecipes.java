@@ -14,7 +14,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
+import vectorwing.farmersdelight.common.tag.CommonTags;
+import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.data.builder.CuttingBoardRecipeBuilder;
 
 public class RespitefulRecipes {
@@ -38,7 +39,7 @@ public class RespitefulRecipes {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ctx.getEntry())
             .requires(Items.BOWL)
             .requires(ingredient)
-            .requires(ForgeTags.MILK)
+            .requires(CommonTags.Items.MILK)
             .requires(NeapolitanItems.ICE_CUBES.get())
             .requires(Items.SUGAR)
             .unlockedBy("has_" + prov.safeName(ingredient), ingredient.getCritereon(prov))
@@ -56,7 +57,7 @@ public class RespitefulRecipes {
             .unlockedBy("has_" + prov.safeName(slice), slice.getCritereon(prov))
             .save(prov, ctx.getId() + "_from_slices");
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, ctx.getEntry())
-            .define('m', ForgeTags.MILK)
+            .define('m', CommonTags.Items.MILK)
             .define('s', Items.SUGAR)
             .define('t', ingredient)
             .define('e', Tags.Items.EGGS)
@@ -64,8 +65,19 @@ public class RespitefulRecipes {
             .pattern("msm").pattern("tet").pattern("www")
             .unlockedBy("has_" + prov.safeName(ingredient), ingredient.getCritereon(prov))
             .save(prov);
-        CuttingBoardRecipeBuilder.cuttingRecipe(cake, Ingredient.of(ForgeTags.TOOLS_KNIVES), sliceIn.get(), 7)
-            .build(prov, new ResourceLocation(ctx.getId().getNamespace(), "cutting/" + ctx.getName()));
+        CuttingBoardRecipeBuilder.cuttingRecipe(cake, Ingredient.of(ModTags.Items.KNIVES), sliceIn.get(), 7)
+            .save(prov, new ResourceLocation(ctx.getId().getNamespace(), "cutting/" + ctx.getName()));
+    }
+
+    public static void milkshake(DataGenContext<Item, ? extends Item> ctx, RegistrateRecipeProvider prov,
+                                 NonNullSupplier<? extends Item> iceCreamIn) {
+        var iceCream = DataIngredient.items(iceCreamIn);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ctx.getEntry(), 3)
+            .requires(Items.GLASS_BOTTLE, 3)
+            .requires(iceCream)
+            .requires(CommonTags.Items.MILK)
+            .unlockedBy("has_" + prov.safeName(iceCream), iceCream.getCritereon(prov))
+            .save(prov);
     }
 
     public static void snowTopDrink(DataGenContext<Item, ? extends Item> ctx, RegistrateRecipeProvider prov,
@@ -75,7 +87,7 @@ public class RespitefulRecipes {
             .requires(Items.GLASS_BOTTLE, 2)
             .requires(NeapolitanItems.VANILLA_ICE_CREAM.get())
             .requires(ingredient)
-            .requires(ForgeTags.MILK)
+            .requires(CommonTags.Items.MILK)
             .unlockedBy("has_" + prov.safeName(ingredient), ingredient.getCritereon(prov))
             .save(prov);
     }

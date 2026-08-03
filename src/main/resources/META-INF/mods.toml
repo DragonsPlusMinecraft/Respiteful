@@ -43,6 +43,13 @@ description='''${mod_description}'''
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="farmersdelight"
+    mandatory=true
+    versionRange="${farmersdelight_version_spec}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
     modId="farmersrespite"
     mandatory=true
     versionRange="${farmersrespite_version_spec}"

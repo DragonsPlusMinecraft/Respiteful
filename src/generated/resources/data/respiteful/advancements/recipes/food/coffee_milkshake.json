@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coffee_ice_cream": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "respiteful:coffee_ice_cream"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "respiteful:coffee_milkshake"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_coffee_ice_cream",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "respiteful:coffee_milkshake"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -12,10 +12,10 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Setup JDK 21
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Validate Gradle Wrapper Integrity
@@ -24,10 +24,82 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Build
-        run: ./gradlew build
+      - name: Build release candidate
+        run: ./gradlew clean build -Pmod_version=1.4.0-rc.1
+
+      - name: Generate data twice and verify it is stable
+        run: |
+          ./gradlew runData
+          ./gradlew runData
+          git diff --exit-code
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Artifacts
+          name: respiteful-1.4.0-rc.1
           path: build/libs/
+
+  compatibility:
+    name: GameTests (${{ matrix.runtime.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime:
+          - name: Forge 47.1.33
+            arguments: -Pforge_version=47.1.33
+          - name: Forge 47.4.10
+            arguments: -Pforge_version=47.4.10
+          - name: Forge 47.4.22
+            arguments: -Pforge_version=47.4.22
+          - name: NeoForge 47.1.106
+            arguments: -Plegacy_neoforge_version=1.20.1-47.1.106
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Validate Gradle Wrapper Integrity
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Run compatibility GameTests
+        run: ./gradlew runGameTestServer ${{ matrix.runtime.arguments }}
+
+  integrations:
+    name: Integration smoke (${{ matrix.pack.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pack:
+          - name: EMI + Tinkers' Construct
+            id: emi_tconstruct
+          - name: Thermal + JEI
+            id: thermal
+          - name: BucketLib
+            id: bucketlib
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Validate Gradle Wrapper Integrity
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Run integration GameTests
+        run: ./gradlew runGameTestServer -Pforge_version=47.4.22 -Pcompatibility_pack=${{ matrix.pack.id }}

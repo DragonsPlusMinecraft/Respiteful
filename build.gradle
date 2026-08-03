@@ -1,7 +1,7 @@
 plugins {
     id 'net.neoforged.moddev.legacyforge' version '2.0.107'
     id 'maven-publish'
-    id 'me.modmuss50.mod-publish-plugin' version '0.8.4'
+    id 'me.modmuss50.mod-publish-plugin' version '2.1.1'
     id 'idea'
 }
 
@@ -11,10 +11,26 @@ base {
     archivesName = mod_artifact_id
 }
 
+def requiredModProjects = [
+    [curseforge: "blueprint",       modrinth: "VsM5EDoI"],
+    [curseforge: "neapolitan",      modrinth: "InYMuiQt"],
+    [curseforge: "farmers-delight", modrinth: "R2OftAxM"],
+    [curseforge: "farmers-respite", modrinth: "fasdaXH5"]
+]
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+def legacyNeoForgeVersion = providers.gradleProperty("legacy_neoforge_version").orNull
+def compatibilityPack = providers.gradleProperty("compatibility_pack").getOrElse("create_jei")
+
 legacyForge {
-    version = project.minecraft_version + '-' + project.forge_version
+    if (legacyNeoForgeVersion != null) {
+        enable {
+            neoForgeVersion = legacyNeoForgeVersion
+        }
+    } else {
+        version = project.minecraft_version + '-' + project.forge_version
+    }
 
     validateAccessTransformers = false
 
@@ -44,6 +60,7 @@ legacyForge {
         data {
             data()
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--existing-mod', 'neapolitan'
         }
 
         configureEach {
@@ -97,6 +114,7 @@ repositories {
         }
     }
     maven {url = "https://www.cursemaven.com"}
+    maven {url = "https://maven.covers1624.net/repository/maven-hosted"}
 }
 
 dependencies {
@@ -110,16 +128,42 @@ dependencies {
     modImplementation("maven.modrinth:neapolitan:${neapolitan_version}")
     modImplementation("maven.modrinth:farmers-delight:${farmersdelight_version}")
     modImplementation("curse.maven:farmers-respite-551453:${farmersrespite_file}")
-    modImplementation("maven.modrinth:gallery:1.0.3")
-    modImplementation("maven.modrinth:create:mc1.20.1-6.0.8")
 
     modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
     modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
-    modLocalRuntime("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
     modCompileOnly("squeek.appleskin:appleskin-forge:${appleskin_version}:api")
-    modLocalRuntime("squeek.appleskin:appleskin-forge:${appleskin_version}")
+
+    switch (compatibilityPack) {
+        case "create_jei":
+            modLocalRuntime("maven.modrinth:gallery:1.0.3")
+            modLocalRuntime("maven.modrinth:create:mc1.20.1-${create_version}")
+            modLocalRuntime("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+            modLocalRuntime("squeek.appleskin:appleskin-forge:${appleskin_version}")
+            break
+        case "emi_tconstruct":
+            modLocalRuntime("maven.modrinth:${emi_project_id}:${emi_version_id}")
+            modLocalRuntime("curse.maven:mantle-74924:${mantle_file}")
+            modLocalRuntime("curse.maven:tinkers-construct-74072:${tconstruct_file}")
+            break
+        case "thermal":
+            modLocalRuntime("com.teamcofh:cofh_core:${cofh_core_version}")
+            modLocalRuntime("com.teamcofh:thermal_core:${thermal_core_version}")
+            modLocalRuntime("com.teamcofh:thermal_foundation:${thermal_foundation_version}") { transitive = false }
+            modLocalRuntime("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+            break
+        case "bucketlib":
+            modLocalRuntime("maven.modrinth:${bucketlib_project_id}:${bucketlib_version_id}")
+            break
+        default:
+            throw new GradleException("Unknown compatibility_pack '${compatibilityPack}'. " +
+                "Expected create_jei, emi_tconstruct, thermal, or bucketlib.")
+    }
 
     annotationProcessor( "org.spongepowered:mixin:0.8.5:processor")
+
+    testImplementation(platform("org.junit:junit-bom:5.10.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 jar {
@@ -128,11 +172,10 @@ jar {
         attributes([
                 "Specification-Title"     : project.mod_id,
                 "Specification-Vendor"    : project.mod_authors,
-                "Specification-Version"   : "1",
+                "Specification-Version"   : project.mod_version,
                 "Implementation-Title"    : project.mod_name,
-                "Implementation-Version"  : "1",
+                "Implementation-Version"  : project.mod_version,
                 "Implementation-Vendor"   : project.mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 'MixinConfigs': "${mod_id}.mixins.json"
         ])
     }
@@ -153,9 +196,11 @@ processResources {
             mod_description          : mod_description,
             "blueprint_version_spec":       blueprint_version_spec,
             "neapolitan_version_spec":      neapolitan_version_spec,
+            "farmersdelight_version_spec":  farmersdelight_version_spec,
             "farmersrespite_version_spec":  farmersrespite_version_spec
     ]
     replaceProperties.put("file", [jarVersion: project.version])
+    inputs.properties(replaceProperties)
 
     filesMatching(["META-INF/mods.toml"]) {
         expand(replaceProperties)
@@ -194,10 +239,11 @@ publishMods {
         projectId = "836471"
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         minecraftVersions.add(minecraft_version)
+        client = true
+        server = true
 
-        requires {
-            slug = "neapolitan"
-            slug = "farmers-respite"
+        requiredModProjects.each { dependency ->
+            requires { slug = dependency.curseforge }
         }
     }
 
@@ -205,16 +251,35 @@ publishMods {
         projectId = "Df7RucLK"
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.add(minecraft_version)
+        environment = CLIENT_AND_SERVER
 
-        requires {
-            slug = "neapolitan"
-            slug = "farmers-respite"
+        requiredModProjects.each { dependency ->
+            requires { slug = dependency.modrinth }
         }
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    systemProperty 'respiteful.projectDir', projectDir.absolutePath
+}
+
+tasks.register('prepareGameTestStructures', Copy) {
+    from 'src/test/resources/gameteststructures'
+    into 'run/gameteststructures'
+}
+
+tasks.named('runGameTestServer') {
+    dependsOn tasks.named('prepareGameTestStructures')
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }
 
 idea {

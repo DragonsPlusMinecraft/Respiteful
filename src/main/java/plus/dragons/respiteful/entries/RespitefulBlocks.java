@@ -3,6 +3,7 @@ package plus.dragons.respiteful.entries;
 import com.google.common.collect.ImmutableMap;
 import com.teamabnormals.neapolitan.common.block.FlavoredCakeBlock;
 import com.teamabnormals.neapolitan.common.block.FlavoredCandleCakeBlock;
+import com.teamabnormals.neapolitan.common.block.MilkshakeCauldronBlock;
 import com.tterrag.registrate.providers.RegistrateLangProvider;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -11,7 +12,6 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,18 +20,20 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import plus.dragons.respiteful.data.RespitefulBlockStates;
 import plus.dragons.respiteful.data.RespitefulBlockTags;
 import plus.dragons.respiteful.data.RespitefulRecipes;
+import plus.dragons.respiteful.common.RespitefulCauldronInteractions;
+import plus.dragons.respiteful.common.block.RespitefulFlavoredCakeBlock;
+import plus.dragons.respiteful.common.block.RespitefulFlavoredCandleCakeBlock;
 import plus.dragons.respiteful.entries.RespitefulItems.Foods;
 import umpaz.farmersrespite.common.registry.FRItems;
 
 import java.util.LinkedHashMap;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static plus.dragons.respiteful.Respiteful.REGISTRATE;
 
 public class RespitefulBlocks {
-    public static final BlockEntry<FlavoredCakeBlock> GREEN_TEA_CAKE = REGISTRATE.block("green_tea_cake",
-            prop -> new FlavoredCakeBlock(Foods.GREEN_TEA_CAKE, prop))
+    public static final BlockEntry<FlavoredCakeBlock> GREEN_TEA_CAKE = REGISTRATE.<FlavoredCakeBlock>block("green_tea_cake",
+            prop -> new RespitefulFlavoredCakeBlock(Foods.GREEN_TEA_CAKE, RespitefulItems.GREEN_TEA_CAKE_SLICE, prop))
         .initialProperties(() -> Blocks.CAKE)
         .properties(prop -> prop.mapColor(MapColor.PLANT))
         .blockstate(RespitefulBlockStates::cake)
@@ -43,8 +45,8 @@ public class RespitefulBlocks {
         .recipe((ctx, prov) -> RespitefulRecipes.cake(ctx, prov, FRItems.GREEN_TEA_LEAVES::get, RespitefulItems.GREEN_TEA_CAKE_SLICE))
         .build()
         .register();
-    public static final BlockEntry<FlavoredCakeBlock> YELLOW_TEA_CAKE = REGISTRATE.block("yellow_tea_cake",
-            prop -> new FlavoredCakeBlock(Foods.YELLOW_TEA_CAKE, prop))
+    public static final BlockEntry<FlavoredCakeBlock> YELLOW_TEA_CAKE = REGISTRATE.<FlavoredCakeBlock>block("yellow_tea_cake",
+            prop -> new RespitefulFlavoredCakeBlock(Foods.YELLOW_TEA_CAKE, RespitefulItems.YELLOW_TEA_CAKE_SLICE, prop))
         .initialProperties(() -> Blocks.CAKE)
         .properties(prop -> prop.mapColor(MapColor.COLOR_GREEN))
         .blockstate(RespitefulBlockStates::cake)
@@ -56,8 +58,8 @@ public class RespitefulBlocks {
         .recipe((ctx, prov) -> RespitefulRecipes.cake(ctx, prov, FRItems.YELLOW_TEA_LEAVES::get, RespitefulItems.YELLOW_TEA_CAKE_SLICE))
         .build()
         .register();
-    public static final BlockEntry<FlavoredCakeBlock> BLACK_TEA_CAKE = REGISTRATE.block("black_tea_cake",
-            prop -> new FlavoredCakeBlock(Foods.BLACK_TEA_CAKE, prop))
+    public static final BlockEntry<FlavoredCakeBlock> BLACK_TEA_CAKE = REGISTRATE.<FlavoredCakeBlock>block("black_tea_cake",
+            prop -> new RespitefulFlavoredCakeBlock(Foods.BLACK_TEA_CAKE, RespitefulItems.BLACK_TEA_CAKE_SLICE, prop))
         .initialProperties(() -> Blocks.CAKE)
         .properties(prop -> prop.mapColor(MapColor.TERRACOTTA_BLACK))
         .blockstate(RespitefulBlockStates::cake)
@@ -105,6 +107,18 @@ public class RespitefulBlocks {
         .tab(CreativeModeTabs.BUILDING_BLOCKS)
         .build()
         .register();
+    public static final BlockEntry<MilkshakeCauldronBlock> GREEN_TEA_MILKSHAKE_CAULDRON =
+        milkshakeCauldron("green_tea_milkshake_cauldron", RespitefulCauldronInteractions.GREEN_TEA_MILKSHAKE,
+            new net.minecraft.resources.ResourceLocation("neapolitan", "block/mint_milkshake"));
+    public static final BlockEntry<MilkshakeCauldronBlock> YELLOW_TEA_MILKSHAKE_CAULDRON =
+        milkshakeCauldron("yellow_tea_milkshake_cauldron", RespitefulCauldronInteractions.YELLOW_TEA_MILKSHAKE,
+            new net.minecraft.resources.ResourceLocation("neapolitan", "block/banana_milkshake"));
+    public static final BlockEntry<MilkshakeCauldronBlock> BLACK_TEA_MILKSHAKE_CAULDRON =
+        milkshakeCauldron("black_tea_milkshake_cauldron", RespitefulCauldronInteractions.BLACK_TEA_MILKSHAKE,
+            new net.minecraft.resources.ResourceLocation("neapolitan", "block/adzuki_milkshake"));
+    public static final BlockEntry<MilkshakeCauldronBlock> COFFEE_MILKSHAKE_CAULDRON =
+        milkshakeCauldron("coffee_milkshake_cauldron", RespitefulCauldronInteractions.COFFEE_MILKSHAKE,
+            new net.minecraft.resources.ResourceLocation("neapolitan", "block/chocolate_milkshake"));
     private static final LinkedHashMap<Block, String> CANDLE_NAMES = Util.make(new LinkedHashMap<>(), map -> {
         map.put(Blocks.CANDLE, "candle");
         map.put(Blocks.WHITE_CANDLE, "white_candle");
@@ -139,8 +153,11 @@ public class RespitefulBlocks {
             var cakeName = cake.getId().getPath();
             var candleEnName = RegistrateLangProvider.toEnglishName(candleName);
             var cakeEnName = RegistrateLangProvider.toEnglishName(cakeName);
-            map.put(candle, REGISTRATE.block(candleName + "_" + cakeName,
-                    prop -> new FlavoredCandleCakeBlock(cake::get, candle, prop))
+            Supplier<? extends ItemLike> slice = cake == GREEN_TEA_CAKE ? RespitefulItems.GREEN_TEA_CAKE_SLICE
+                : cake == YELLOW_TEA_CAKE ? RespitefulItems.YELLOW_TEA_CAKE_SLICE
+                : RespitefulItems.BLACK_TEA_CAKE_SLICE;
+            map.put(candle, REGISTRATE.<FlavoredCandleCakeBlock>block(candleName + "_" + cakeName,
+                    prop -> new RespitefulFlavoredCandleCakeBlock(cake::get, candle, slice, prop))
                 .initialProperties(cake)
                 .lang(cakeEnName + " with " + candleEnName)
                 .blockstate(RespitefulBlockStates::candleCake)
@@ -152,11 +169,17 @@ public class RespitefulBlocks {
         return map.build();
     }
 
-    public static void register(IEventBus bus) {
+    private static BlockEntry<MilkshakeCauldronBlock> milkshakeCauldron(
+        String name, com.teamabnormals.blueprint.core.api.BlueprintCauldronInteraction interactions,
+        net.minecraft.resources.ResourceLocation contentTexture) {
+        return REGISTRATE.block(name, properties -> new MilkshakeCauldronBlock(interactions.map()))
+            .blockstate((ctx, prov) -> RespitefulBlockStates.milkshakeCauldron(ctx, prov, contentTexture))
+            .tag(BlockTags.CAULDRONS)
+            .loot((loot, block) -> loot.dropOther(block, Blocks.CAULDRON))
+            .register();
     }
 
-    private static Predicate<ItemStack> matches(Supplier<? extends ItemLike> supplier) {
-        return stack -> stack.is(supplier.get().asItem());
+    public static void register(IEventBus bus) {
     }
 
 }

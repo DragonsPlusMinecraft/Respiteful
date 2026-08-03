@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.neapolitan.common.block.FlavoredCakeBlock;
+import com.teamabnormals.neapolitan.common.item.IceCreamItem;
+import com.teamabnormals.neapolitan.common.item.MilkshakeItem;
 import com.teamabnormals.neapolitan.core.other.tags.NeapolitanItemTags;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanMobEffects;
@@ -41,7 +43,7 @@ import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 import vectorwing.farmersdelight.common.registry.ModEffects;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
+import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import java.util.HashMap;
 import java.util.List;
@@ -104,27 +106,27 @@ public class RespitefulItems {
     public static final ItemEntry<ConsumableItem> BLACK_TEA_CAKE_SLICE = cakeSlice(RespitefulBlocks.BLACK_TEA_CAKE,
         Foods.BLACK_TEA_CAKE_SLICE).lang("Slice of Black Tea Cake").register();
 
-    public static final ItemEntry<ConsumableItem> GREEN_TEA_ICE_CREAM = iceCream("green_tea_ice_cream",
+    public static final ItemEntry<IceCreamItem> GREEN_TEA_ICE_CREAM = iceCream("green_tea_ice_cream",
         Foods.GREEN_TEA_ICE_CREAM)
         .recipe((ctx, prov) -> RespitefulRecipes.iceCream(ctx, prov, FRItems.GREEN_TEA_LEAVES::get))
         .register();
 
-    public static final ItemEntry<ConsumableItem> YELLOW_TEA_ICE_CREAM = iceCream("yellow_tea_ice_cream",
+    public static final ItemEntry<IceCreamItem> YELLOW_TEA_ICE_CREAM = iceCream("yellow_tea_ice_cream",
         Foods.YELLOW_TEA_ICE_CREAM)
         .recipe((ctx, prov) -> RespitefulRecipes.iceCream(ctx, prov, FRItems.YELLOW_TEA_LEAVES::get))
         .register();
 
-    public static final ItemEntry<ConsumableItem> BLACK_TEA_ICE_CREAM = iceCream("black_tea_ice_cream",
+    public static final ItemEntry<IceCreamItem> BLACK_TEA_ICE_CREAM = iceCream("black_tea_ice_cream",
         Foods.BLACK_TEA_ICE_CREAM)
         .recipe((ctx, prov) -> RespitefulRecipes.iceCream(ctx, prov, FRItems.BLACK_TEA_LEAVES::get))
         .register();
 
-    public static final ItemEntry<ConsumableItem> COFFEE_ICE_CREAM = iceCream("coffee_ice_cream",
+    public static final ItemEntry<IceCreamItem> COFFEE_ICE_CREAM = iceCream("coffee_ice_cream",
         Foods.COFFEE_ICE_CREAM)
         .recipe((ctx, prov) -> RespitefulRecipes.iceCream(ctx, prov, FRItems.COFFEE_BEANS::get))
         .register();
 
-    public static final ItemEntry<ConsumableItem> RESPITEFUL_ICE_CREAM = iceCream("respiteful_ice_cream",
+    public static final ItemEntry<IceCreamItem> RESPITEFUL_ICE_CREAM = iceCream("respiteful_ice_cream",
         Foods.RESPITEFUL_ICE_CREAM)
         .recipe((ctx, prov) -> {
             var greenTea = DataIngredient.items(FRItems.GREEN_TEA_LEAVES.get());
@@ -135,7 +137,7 @@ public class RespitefulItems {
                 .requires(greenTea)
                 .requires(yellowTea)
                 .requires(blackTea)
-                .requires(ForgeTags.MILK)
+                .requires(CommonTags.Items.MILK)
                 .requires(NeapolitanItems.ICE_CUBES.get())
                 .requires(Items.SUGAR)
                 .unlockedBy("has_" + prov.safeName(greenTea), greenTea.getCritereon(prov))
@@ -145,6 +147,26 @@ public class RespitefulItems {
         })
         .register();
 
+    public static final ItemEntry<MilkshakeItem> GREEN_TEA_MILKSHAKE = milkshake("green_tea_milkshake",
+        Foods.GREEN_TEA_MILKSHAKE, new ResourceLocation("neapolitan", "item/mint_milkshake"))
+        .recipe((ctx, prov) -> RespitefulRecipes.milkshake(ctx, prov, GREEN_TEA_ICE_CREAM))
+        .register();
+
+    public static final ItemEntry<MilkshakeItem> YELLOW_TEA_MILKSHAKE = milkshake("yellow_tea_milkshake",
+        Foods.YELLOW_TEA_MILKSHAKE, new ResourceLocation("neapolitan", "item/banana_milkshake"))
+        .recipe((ctx, prov) -> RespitefulRecipes.milkshake(ctx, prov, YELLOW_TEA_ICE_CREAM))
+        .register();
+
+    public static final ItemEntry<MilkshakeItem> BLACK_TEA_MILKSHAKE = milkshake("black_tea_milkshake",
+        Foods.BLACK_TEA_MILKSHAKE, new ResourceLocation("neapolitan", "item/adzuki_milkshake"))
+        .recipe((ctx, prov) -> RespitefulRecipes.milkshake(ctx, prov, BLACK_TEA_ICE_CREAM))
+        .register();
+
+    public static final ItemEntry<MilkshakeItem> COFFEE_MILKSHAKE = milkshake("coffee_milkshake",
+        Foods.COFFEE_MILKSHAKE, new ResourceLocation("neapolitan", "item/chocolate_milkshake"))
+        .recipe((ctx, prov) -> RespitefulRecipes.milkshake(ctx, prov, COFFEE_ICE_CREAM))
+        .register();
+
     private static <T extends Item> NonNullUnaryOperator<ItemBuilder<T, RespitefulRegistrate>> tooltip(String tooltip) {
         return builder -> {
             ResourceLocation id = new ResourceLocation(builder.getOwner().getModid(), builder.getName());
@@ -152,16 +174,23 @@ public class RespitefulItems {
         };
     }
 
-    private static ItemBuilder<ConsumableItem, RespitefulRegistrate> cakeSlice(BlockEntry<FlavoredCakeBlock> cake, FoodProperties food) {
+    private static ItemBuilder<ConsumableItem, RespitefulRegistrate> cakeSlice(BlockEntry<? extends FlavoredCakeBlock> cake, FoodProperties food) {
         return REGISTRATE.item(cake.getId().getPath() + "_slice",
                 prop -> new ConsumableItem(prop, true))
             .properties(prop -> prop.food(food));
     }
 
-    private static ItemBuilder<ConsumableItem, RespitefulRegistrate> iceCream(String name, FoodProperties food) {
-        return REGISTRATE.item(name, prop -> new ConsumableItem(prop, true))
+    private static ItemBuilder<IceCreamItem, RespitefulRegistrate> iceCream(String name, FoodProperties food) {
+        return REGISTRATE.item(name, IceCreamItem::new)
             .properties(prop -> prop.food(food).stacksTo(1).craftRemainder(Items.BOWL))
             .tag(NeapolitanItemTags.ICE_CREAM);
+    }
+
+    private static ItemBuilder<MilkshakeItem, RespitefulRegistrate> milkshake(
+        String name, FoodProperties food, ResourceLocation texture) {
+        return REGISTRATE.item(name, MilkshakeItem::new)
+            .properties(prop -> prop.food(food).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE))
+            .model((ctx, prov) -> prov.generated(ctx, texture));
     }
 
     public static void register(IEventBus modBus) {
@@ -186,6 +215,22 @@ public class RespitefulItems {
             .build();
         public static final FoodProperties SNOW_TOP_DRINK = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.6F).build();
+        public static final FoodProperties GREEN_TEA_MILKSHAKE = new FoodProperties.Builder().alwaysEat()
+            .nutrition(2).saturationMod(1.5F)
+            .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 1200), 1F)
+            .build();
+        public static final FoodProperties YELLOW_TEA_MILKSHAKE = new FoodProperties.Builder().alwaysEat()
+            .nutrition(2).saturationMod(1.5F)
+            .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 1200), 1F)
+            .build();
+        public static final FoodProperties BLACK_TEA_MILKSHAKE = new FoodProperties.Builder().alwaysEat()
+            .nutrition(2).saturationMod(1.5F)
+            .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 1200), 1F)
+            .build();
+        public static final FoodProperties COFFEE_MILKSHAKE = new FoodProperties.Builder().alwaysEat()
+            .nutrition(2).saturationMod(1.5F)
+            .effect(() -> new MobEffectInstance(FREffects.CAFFEINATED.get(), 1200), 1F)
+            .build();
         public static final FoodProperties GREEN_TEA_CAKE = new FoodProperties.Builder()
             .nutrition(2).saturationMod(0.1F).fast().alwaysEat()
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 400), 1F)
@@ -214,28 +259,23 @@ public class RespitefulItems {
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400), 1F)
             .build();
         public static final FoodProperties GREEN_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F).alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
+            .nutrition(6).saturationMod(0.3F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties YELLOW_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F).alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
+            .nutrition(6).saturationMod(0.3F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties BLACK_TEA_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F).alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
+            .nutrition(6).saturationMod(0.3F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 600, 1), 1F)
             .build();
         public static final FoodProperties COFFEE_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.4F).alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
+            .nutrition(6).saturationMod(0.3F)
             .effect(() -> new MobEffectInstance(FREffects.CAFFEINATED.get(), 1200, 2), 1F)
             .build();
         public static final FoodProperties RESPITEFUL_ICE_CREAM = new FoodProperties.Builder()
-            .nutrition(12).saturationMod(0.4F).alwaysEat()
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), 1F)
+            .nutrition(12).saturationMod(0.3F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.VITALITY.get(), 900), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.TENACITY.get(), 900), 1F)
             .effect(() -> new MobEffectInstance(RespitefulMobEffects.MATURITY.get(), 900), 1F)
@@ -296,7 +336,7 @@ public class RespitefulItems {
 
         @SubscribeEvent
         public static void onWandererTrades(WandererTradesEvent event) {
-            if (Configuration.FARMERS_BUY_FD_CROPS.get()) {
+            if (Configuration.ENABLE_FARMERS_BUY_FD_CROPS.get()) {
                 List<VillagerTrades.ItemListing> trades = event.getGenericTrades();
                 trades.add(new BlueprintTrade(RespitefulBlocks.GREEN_TEA_CAKE.get().asItem(), 1, 13, 12, 30));
                 trades.add(new BlueprintTrade(RespitefulBlocks.YELLOW_TEA_CAKE.get().asItem(), 1, 13, 12, 30));

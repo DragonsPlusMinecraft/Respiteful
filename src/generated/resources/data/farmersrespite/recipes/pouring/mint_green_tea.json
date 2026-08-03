@@ -4,7 +4,7 @@
   "container": {
     "item": "minecraft:glass_bottle"
   },
-  "fluid": "respiteful:flowing_mint_green_tea",
+  "fluid": "respiteful:mint_green_tea",
   "output": {
     "item": "respiteful:mint_green_tea"
   }
