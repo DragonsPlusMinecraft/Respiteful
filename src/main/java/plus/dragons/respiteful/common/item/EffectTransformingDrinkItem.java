@@ -37,14 +37,18 @@ public abstract class EffectTransformingDrinkItem extends DrinkItem {
 
     protected void handleEffects(LivingEntity user) {
         var milk = Items.MILK_BUCKET.getDefaultInstance();
-        user.getActiveEffects()
+        var effectsToTransform = user.getActiveEffects()
             .stream()
             .filter(instance -> instance.getEffect().getCategory() == this.category)
             .filter(instance -> instance.isCurativeItem(milk))
             .filter(this::canTransformEffect)
-            .filter(instance -> user.removeEffect(instance.getEffect()))
-            .map(this::transformEffect)
-            .forEach(user::addEffect);
+            .toList();
+        for (MobEffectInstance effect : effectsToTransform) {
+            var transformedEffect = this.transformEffect(effect);
+            if (user.removeEffect(effect.getEffect())) {
+                user.addEffect(transformedEffect);
+            }
+        }
     }
 
     protected String getTooltipKey() {

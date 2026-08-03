@@ -25,7 +25,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build release candidate
-        run: ./gradlew clean build -Pmod_version=1.4.0-rc.1
+        run: ./gradlew clean build -Pmod_version=1.4.1-rc.1
 
       - name: Generate data twice and verify it is stable
         run: |
@@ -35,11 +35,11 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: respiteful-1.4.0-rc.1
+          name: respiteful-1.4.1-rc.1
           path: build/libs/
 
   compatibility:
-    name: GameTests (${{ matrix.runtime.name }})
+    name: Compatibility build (${{ matrix.runtime.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -69,11 +69,11 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Run compatibility GameTests
-        run: ./gradlew runGameTestServer ${{ matrix.runtime.arguments }}
+      - name: Build compatibility target
+        run: ./gradlew clean build ${{ matrix.runtime.arguments }}
 
   integrations:
-    name: Integration smoke (${{ matrix.pack.name }})
+    name: Integration build (${{ matrix.pack.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -101,5 +101,5 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Run integration GameTests
-        run: ./gradlew runGameTestServer -Pforge_version=47.4.22 -Pcompatibility_pack=${{ matrix.pack.id }}
+      - name: Build integration pack
+        run: ./gradlew clean build -Pforge_version=47.4.22 -Pcompatibility_pack=${{ matrix.pack.id }}

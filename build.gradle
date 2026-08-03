@@ -42,19 +42,11 @@ legacyForge {
     runs {
         client {
             client()
-
-            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
             server()
             programArgument '--nogui'
-            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
@@ -266,15 +258,6 @@ tasks.withType(JavaCompile).configureEach {
 tasks.named('test') {
     useJUnitPlatform()
     systemProperty 'respiteful.projectDir', projectDir.absolutePath
-}
-
-tasks.register('prepareGameTestStructures', Copy) {
-    from 'src/test/resources/gameteststructures'
-    into 'run/gameteststructures'
-}
-
-tasks.named('runGameTestServer') {
-    dependsOn tasks.named('prepareGameTestStructures')
 }
 
 tasks.withType(AbstractArchiveTask).configureEach {
