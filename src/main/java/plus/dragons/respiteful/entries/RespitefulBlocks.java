@@ -153,9 +153,10 @@ public class RespitefulBlocks {
             var cakeName = cake.getId().getPath();
             var candleEnName = RegistrateLangProvider.toEnglishName(candleName);
             var cakeEnName = RegistrateLangProvider.toEnglishName(cakeName);
-            Supplier<? extends ItemLike> slice = cake == GREEN_TEA_CAKE ? RespitefulItems.GREEN_TEA_CAKE_SLICE
+            // Defer item lookups to avoid circular initialization when integrations load items early.
+            Supplier<? extends ItemLike> slice = () -> (cake == GREEN_TEA_CAKE ? RespitefulItems.GREEN_TEA_CAKE_SLICE
                 : cake == YELLOW_TEA_CAKE ? RespitefulItems.YELLOW_TEA_CAKE_SLICE
-                : RespitefulItems.BLACK_TEA_CAKE_SLICE;
+                : RespitefulItems.BLACK_TEA_CAKE_SLICE).get();
             map.put(candle, REGISTRATE.<FlavoredCandleCakeBlock>block(candleName + "_" + cakeName,
                     prop -> new RespitefulFlavoredCandleCakeBlock(cake::get, candle, slice, prop))
                 .initialProperties(cake)

@@ -27,7 +27,7 @@ class ReleaseMetadataTest {
             "forge_version=47.1.33",
             "forge_version_range=[47.1.33,48)",
             "loader_version_range=[47,48)",
-            "mod_version=1.4.1",
+            "mod_version=1.4.2",
             "blueprint_version = 7.1.4",
             "blueprint_version_spec = [7.1.3,8)",
             "neapolitan_version = 5.1.0",
@@ -124,7 +124,7 @@ class ReleaseMetadataTest {
     void changelogContainsOnlyTheCurrentRelease() throws IOException {
         String changelog = read("CHANGELOG.md");
         assertEquals(1, occurrences(changelog, "## Respiteful "));
-        assertTrue(changelog.startsWith("## Respiteful 1.4.1"));
+        assertTrue(changelog.startsWith("## Respiteful 1.4.2"));
     }
 
     @Test
@@ -141,8 +141,8 @@ class ReleaseMetadataTest {
             "Forge 47.4.22",
             "NeoForge 47.1.106",
             "-Plegacy_neoforge_version=1.20.1-47.1.106",
-            "clean build -Pmod_version=1.4.1-rc.1",
-            "name: respiteful-1.4.1-rc.1",
+            "clean build -Pmod_version=1.4.2-rc.1",
+            "name: respiteful-1.4.2-rc.1",
             "Build compatibility target",
             "Build integration pack",
             "id: emi_tconstruct",

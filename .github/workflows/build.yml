@@ -25,7 +25,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build release candidate
-        run: ./gradlew clean build -Pmod_version=1.4.1-rc.1
+        run: ./gradlew clean build -Pmod_version=1.4.2-rc.1
 
       - name: Generate data twice and verify it is stable
         run: |
@@ -35,7 +35,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: respiteful-1.4.1-rc.1
+          name: respiteful-1.4.2-rc.1
           path: build/libs/
 
   compatibility:
